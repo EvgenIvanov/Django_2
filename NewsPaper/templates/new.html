@@ -1,10 +1,12 @@
 <!--  наследуемся от шаблона default.html -->
 {% extends 'default.html' %}
 
-<!-- Название у нас будет new -->
-{% block title %} New {% endblock title %}
+<!-- Название у нас будет news -->
+{% block title %} News {% endblock title %}
 
-<!-- В контенте на странице выводи новость, айди которой был передан в адрес -->
+<!-- В контенте на странице выводим новости -->
 {% block content %}
-<h1>{{ new }}</h1>
+<p>{{ new.title }}</p>
+<span>{{ new.created|date:'d M Y' }}</span>
+<p>{{ new.text }}</p>
 {% endblock content %}

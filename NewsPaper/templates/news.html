@@ -6,5 +6,20 @@
 
 <!-- В контенте на странице выводим новости -->
 {% block content %}
-<h1>{{ news }}</h1>
-{% endblock content %}
+<h1>News</h1>
+<h3>
+  {{ date_now|date:'d M Y'}} || there are {{ news|length }} news items for today
+</h3>
+{% if news %}
+<ul>
+  {% for new in news %}
+  <li>
+    <p>{{ new.title }}</p>
+    <span>{{ new.created|date:'d M Y' }}</span>
+    {{ new.text|truncatewords:20 }}
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<h3>Нет новостей</h3>
+{% endif %} {% endblock content %}
