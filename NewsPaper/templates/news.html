@@ -1,22 +1,21 @@
 <!--  наследуемся от шаблона default.html -->
-{% extends 'default.html' %}
-
+{% extends 'default.html' %} {% load custom_filters %}
 <!-- Название у нас будет news -->
 {% block title %} News {% endblock title %}
 
 <!-- В контенте на странице выводим новости -->
 {% block content %}
 <h1>News</h1>
-<h3>
+<!-- <h3>
   {{ date_now|date:'d M Y'}} || there are {{ news|length }} news items for today
-</h3>
+</h3> -->
 {% if news %}
 <ul>
   {% for new in news %}
   <li>
-    <p>{{ new.title }}</p>
+    <p>{{ new.title|Censor }}</p>
     <span>{{ new.created|date:'d M Y' }}</span>
-    {{ new.text|truncatewords:20 }}
+    {{ new.text|truncatechars:50 }}
   </li>
   {% endfor %}
 </ul>

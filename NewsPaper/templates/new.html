@@ -1,12 +1,11 @@
 <!--  наследуемся от шаблона default.html -->
-{% extends 'default.html' %}
-
+{% extends 'default.html' %} {% load custom_filters %}
 <!-- Название у нас будет news -->
 {% block title %} News {% endblock title %}
 
 <!-- В контенте на странице выводим новости -->
 {% block content %}
-<p>{{ new.title }}</p>
-<span>{{ new.created|date:'d M Y' }}</span>
-<p>{{ new.text }}</p>
+<p>{{ new.title|Censor }}</p>
+<span>{{ new.created|date:'d-F-Y H:i' }}</span>
+<p>{{ new.text|Censor }}</p>
 {% endblock content %}
