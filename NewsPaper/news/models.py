@@ -46,6 +46,9 @@ class Post(models.Model):
     def dislike(self):
         self.rating -= 1
 
+    def get_absolute_url(self):
+        return f'/news/{self.id}'
+
 class PostCategory(models.Model):
     post_id = models.ForeignKey(Post, on_delete = models.CASCADE)
     category_id = models.ForeignKey(Category, on_delete = models.CASCADE)

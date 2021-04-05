@@ -5,39 +5,42 @@
 
 <!-- В контенте на странице выводим новости -->
 {% block content %}
-<h1>News</h1>
-<!-- <h3>
-  {{ date_now|date:'d M Y'}} || there are {{ news|length }} news items for today
-</h3> -->
 {% if news %}
-  <ul>
-    {% for new in news %}
-    <li>
-      <p>{{ new.title|Censor }}</p>
-      <span>{{ new.created|date:'d M Y' }}</span>
-      {{ new.text|truncatechars:50 }}
-    </li>
-    {% endfor %}
-  </ul>
-
-  {% if is_paginated %} {% if page_obj.has_previous %}
-  <a href="?page=1">First</a>
-  <!-- <a href="?page={{ page_obj.previous_page_number }}"><<<</a> -->
-  {% endif %}
-  {% for num in page_obj.paginator.page_range %}
-    {% if page_obj.number == num %}
-        <a>{{ num }}</a>
-    {% elif num > page_obj.number|add:'-2' and num < page_obj.number|add:'2' %}
-        <a href="?page={{ num }}">{{ num }}</a>
-    {% endif %}
+<ul>
+  {% for new in news %}
+  <li>
+    <p>
+      <a href="{% url 'new_detail' new.id %}" title="смотреть детализацию">{{ new.title|Censor }}</a>
+      <button onclick="document.location='{% url 'new_add' new.id %}'">Edit</button>
+      <button onclick="document.location='{% url 'new_delete' new.id %}'">Delete</button>
+    </p>
+    <span>{{ new.created|date:'d M Y' }}</span>
+    {{ new.text|truncatechars:50 }}
+  </li>
   {% endfor %}
+</ul>
 
-  {% if page_obj.has_next %}
-  <!-- <a href="?page={{ page_obj.next_page_number }}">>>></a> -->
-  <a href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+<button onclick="document.location='{% url 'new_add' %}'">Add new article</button> <br>
+
+    {% if is_paginated %}
+      {% if page_obj.has_previous %}
+        <a href="?page=1">First</a>
+      {% endif %}
+
+      {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+            <a>{{ num }}</a>
+        {% elif num > page_obj.number|add:'-2' and num < page_obj.number|add:'2' %}
+            <a href="?page={{ num }}">{{ num }}</a>
+        {% endif %}
+      {% endfor %}
+
+      {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+      {% endif %}
+    {% endif %}
+
+  {% else %}
+    <h3>Нет новостей</h3>
   {% endif %}
-{% endif %}
-
-{% else %}
-<h3>Нет новостей</h3>
-{% endif %} {% endblock content %}
+{% endblock content %}

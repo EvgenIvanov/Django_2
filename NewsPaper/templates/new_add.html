@@ -1,0 +1,17 @@
+<!--  наследуемся от шаблона default.html -->
+{% extends 'default.html' %}
+<!-- # {% load custom_filters %} -->
+<!-- Название у нас будет news -->
+{% block title %} News {% endblock title %}
+
+<!-- В контенте на странице выводим новости -->
+{% block content %}
+<h2>New Create</h2>
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Добавить товар">
+</form>
+
+{% endblock content %}

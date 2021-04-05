@@ -1,11 +1,19 @@
 <!--  наследуемся от шаблона default.html -->
-{% extends 'default.html' %} {% load custom_filters %}
+{% extends 'default.html' %}
+{% load custom_filters %}
 <!-- Название у нас будет news -->
-{% block title %} News {% endblock title %}
+{% block title %} New Delete {% endblock title %}
 
 <!-- В контенте на странице выводим новости -->
 {% block content %}
+<h2>Вы действительно хотите удалить данный товар?</h2>
+
 <p>{{ new.title|Censor }}</p>
 <span>{{ new.created|date:'d-F-Y H:i' }}</span>
 <p>{{ new.text|Censor }}</p>
+
+<form method="POST">
+    {% csrf_token %}
+    <input type="submit" value="Success delete">
+</form>
 {% endblock content %}
