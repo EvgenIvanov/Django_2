@@ -7,6 +7,8 @@ from .models import Post
 from .filters import NewFilter
 from .forms import NewForm
 
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 class PostSearch(ListView):
     model = Post
     template_name = 'search.html'
@@ -48,7 +50,7 @@ class PostCreate(CreateView):
     form_class = NewForm
     # context_object_name = 'new'
 
-class PostUpdate(UpdateView):
+class PostUpdate(LoginRequiredMixin, UpdateView):
     model = Post
     template_name = 'new_add.html'
     form_class = NewForm
