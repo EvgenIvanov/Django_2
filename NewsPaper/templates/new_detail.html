@@ -1,14 +1,21 @@
-<!--  наследуемся от шаблона default.html -->
-{% extends 'default.html' %}
+{% extends 'index.html' %}
 {% load custom_filters %}
-<!-- Название у нас будет news -->
-{% block title %} News {% endblock title %}
 
-<!-- В контенте на странице выводим новости -->
+{% block pagename %}<h2>Create or Edit new Page</h2>{% endblock %}
+
 {% block content %}
 
-<p>{{ new.title|Censor }}</p>
-<span>{{ new.created|date:'d-F-Y H:i' }}</span>
-<p>{{ new.text|Censor }}</p>
+<div class="card">
+    <div class="card-header">
+      {{ new.created|date:'d-F-Y H:i' }}
+    </div>
+    <div class="card-body">
+      <h5 class="card-title"><a href="{% url 'new_detail' new.id %}" title="show detail">{{ new.title|Censor }}</a></h5>
+      <p class="card-text">{{ new.text|Censor }}</p>
+    </div>
+    <div class="card-footer text-right">
+        author: <b>{{ new.author_id.user_id.username }}</b>
+    </div>
+  </div>
 
 {% endblock content %}

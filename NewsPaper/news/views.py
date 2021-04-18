@@ -8,14 +8,14 @@ from .models import Post
 from .filters import NewFilter
 from .forms import NewForm
 
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 class PostSearch(ListView):
     model = Post
     template_name = 'search.html'
     context_object_name = 'news'
     ordering = ['-id']
-    paginate_by = 1
+    paginate_by = 3
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -33,8 +33,6 @@ class PostsList(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['date_now'] = datetime.today()
-        # context['filter'] = NewFilter(self.request.GET, queryset=self.get_queryset())
-        context['is_not_authors'] = not self.request.user.groups.filter(name='authors').exists()
         return context
 
     def get_absolute_url(self):
@@ -46,13 +44,17 @@ class PostDetail(DetailView):
     context_object_name = 'new'
     queryset = Post.objects.all()
 
-class PostCreate(LoginRequiredMixin, CreateView):
+class PostCreate(UserPassesTestMixin, LoginRequiredMixin, CreateView):
     model = Post
     template_name = 'new_add.html'
     form_class = NewForm
-    # context_object_name = 'new'
 
-class PostUpdate(LoginRequiredMixin, UpdateView):
+    def test_func(self):
+        # obj = self.get_object()
+
+        return self.request.user.groups.filter(name='authors').exists()
+
+class PostUpdate(UserPassesTestMixin, LoginRequiredMixin, UpdateView):
     model = Post
     template_name = 'new_add.html'
     form_class = NewForm
@@ -61,8 +63,16 @@ class PostUpdate(LoginRequiredMixin, UpdateView):
         id = self.kwargs.get('pk')
         return Post.objects.get(pk=id)
 
-class PostDelete(LoginRequiredMixin, DeleteView):
+    def test_func(self):
+        obj = self.get_object()
+        return obj.author_id.user_id == self.request.user
+
+class PostDelete(UserPassesTestMixin, LoginRequiredMixin, DeleteView):
     template_name = 'new_delete.html'
     queryset = Post.objects.all()
     context_object_name = 'new'
     success_url = '/news/'
+
+    def test_func(self):
+        obj = self.get_object()
+        return obj.author_id.user_id == self.request.user

@@ -1,13 +1,17 @@
-<!--  наследуемся от шаблона default.html -->
-{% extends 'default.html' %}
-{% block title %} Personal {% endblock title %}
+{% extends 'index.html' %}
+
+{% block pagename %}<h2>User Profile Page</h2>{% endblock %}
+
 {% block content %}
-<h2>User Profile</h2>
 
 <form method="POST">
     {% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" value="Сохранить">
+    <button type="submit" class="btn btn-primary" title="save changes">Save</button>
 </form>
+
+{% if is_not_authors %}
+    <button type="button" class="btn btn-success" onclick="document.location='/sign/upgrade/'" title="push me" style="margin-top:10px;">I want to be an author of articles</button>
+{% endif %}
 
 {% endblock content %}

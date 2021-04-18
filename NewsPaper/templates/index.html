@@ -1,0 +1,24 @@
+{% extends 'default.html' %}
+<h2>Home page</h2>
+
+{% block sidebar %}
+{% if request.user.is_authenticated %}
+  AUTHED
+{% else %}
+  GUEST
+{% endif %}
+<ul>
+    <li><a href="/">Номе</a></li>
+    <li><a href="/news/">News</a></li>
+    <li><a href="/news/search/">Search New</a></li>
+    <!-- <li><a href="/">Create New</a></li>
+    <li><a href="/">Edit New</a></li>
+    <li><a href="/">Delete New</a></li>
+    <li><a href="/">Private Page</a></li> -->
+</ul>
+
+{% endblock %}
+
+{% block content %}
+<h3>This is  NewsPaper application</h3>
+{% endblock content %}

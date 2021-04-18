@@ -78,6 +78,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'NewsPaper.context_processors.add_variable_to_context',
             ],
         },
     },
@@ -145,5 +146,8 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
+# STATIC_ROOT = ''
 
 STATIC_URL = '/static/'
+
+# STATICFILES_DIR = ( os.path.join('/NewsPaper/static'), )

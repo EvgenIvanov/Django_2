@@ -1,26 +1,52 @@
-{% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Django NewsPaper — {% block title %} {% endblock title %}</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
-    <!-- <link rel="stylesheet" href="styles.css" /> -->
-  </head>
-  <body>
-    <header>
-      <h1>Django module D</h1>
-    </header>
+<head>
 
-    <div>
-      <section class="container">
-        {% block content %} {{ flatpage.content }} {% endblock content %}
-      </section>
+  {% block title %}<title>App NewsPaper</title>{% endblock %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script defer src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script defer src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+  <div class="container-fluid">
+    <div class="row text-right">
+      <div class="col">
+        {% block authuser %}
+          {% if request.user.is_authenticated %}
+            <span style="padding: 0.375rem .75rem; border: 1px solid transparent;">Hello <b>{{ request.user.username }}</b></span>|
+            <button type="button" class="btn btn-link" onclick="document.location='/sign/profile/'">Profile</button>|
+            <button type="button" class="btn btn-link" onclick="document.location='/sign/logout/'">Logout</button>
+          {% else %}
+            <button type="button" class="btn btn-link" onclick="document.location='/sign/login/'" title='Login'>Sign In</button>
+            <!-- <a href="/sign/login/" >Sign In</button> -->
+            |
+            <button type="button" class="btn btn-link" onclick="document.location='/sign/signup/'" title="Registration">Sign Up</button>|
+            <button type="button" class="btn btn-link" onclick="document.location='/accounts/login/'" title='Login with google account'>Sign In with Google</button>
+          {% endif %}
+        {% endblock %}
+      </div>
     </div>
-  </body>
+    <div class="row">
+      <div class="col-sm-12 text-center">
+        {% block pagename %}<h2>Home Page</h2>{% endblock %}
+      </div>
+      <div class="col-sm-2">
+        <ul class="sidebar-nav">
+          {% block sidebar %}
+            <li><a href="{% url 'index' %}">Home</a></li>
+          {% endblock %}
+        </ul>
+      </div>
+      <div class="col-sm-10 ">
+        {% block content %}{% endblock %}
+      </div>
+    </div>
+  </div>
+</body>
 </html>

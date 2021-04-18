@@ -1,54 +1,74 @@
-<!--  наследуемся от шаблона default.html -->
-{% extends 'default.html' %} {% load custom_filters %}
-<!-- Название у нас будет news -->
-{% block title %} News {% endblock title %}
+{% extends 'index.html' %}
+{% load custom_filters %}
 
-<!-- В контенте на странице выводим новости -->
+{% block pagename %}<h2>News Page</h2>{% endblock %}
+
 {% block content %}
+{% if is_author %}
+<p class="text-right">
+  <button type="button" class="btn btn-light" onclick="document.location='{% url 'new_add' %}'">+ Add new article</button> <br>
+</p>
+{% endif %}
 {% if news %}
-<ul>
+  <div class="card-deck">
   {% for new in news %}
-  <li>
-    <p>
-      <a href="{% url 'new_detail' new.id %}" title="смотреть детализацию">{{ new.title|Censor }}</a>
-      <button onclick="document.location='{% url 'new_add' new.id %}'">Edit</button>
-      <button onclick="document.location='{% url 'new_delete' new.id %}'">Delete</button>
-    </p>
-    <span>{{ new.created|date:'d M Y' }}</span>
-    {{ new.text|truncatechars:50 }}
-  </li>
-  {% endfor %}
-</ul>
-
-<button onclick="document.location='{% url 'new_add' %}'">Add new article</button> <br>
-
-    {% if is_paginated %}
-      {% if page_obj.has_previous %}
-        <a href="?page=1">First</a>
-      {% endif %}
-
-      {% for num in page_obj.paginator.page_range %}
-        {% if page_obj.number == num %}
-            <a>{{ num }}</a>
-        {% elif num > page_obj.number|add:'-2' and num < page_obj.number|add:'2' %}
-            <a href="?page={{ num }}">{{ num }}</a>
-        {% endif %}
-      {% endfor %}
-
-      {% if page_obj.has_next %}
-        <a href="?page={{ page_obj.paginator.num_pages }}">Last</a>
-      {% endif %}
+  <div class="card"  style="width: 18rem;">
+    <div class="card-header">
+      {{ new.created|date:'d M Y' }}
+    </div>
+    <div class="card-body">
+      <h5 class="card-title"><a href="{% url 'new_detail' new.id %}" title="show article detail">{{ new.title|Censor }}</a></h5>
+      <p class="card-text">{{ new.text|truncatechars:50 }}</p>
+    </div>
+    {% if is_author %} <!-- request.user.is_authenticated %} -->
+    <div>
+      <div class="footer text-right" style="padding: 0 5px 5px 0">
+        <button type="button" class="btn btn-success" onclick="document.location='{% url 'new_add' new.id %}'">Edit</button>
+        <button type="button" class="btn btn-danger" onclick="document.location='{% url 'new_delete' new.id %}'">Delete</button>
+      </div>
+    </div>
     {% endif %}
+  </div>
+  {% endfor %}
+  </div>
+
+  {% if is_paginated %}
+    <p class="text-right">
+      <nav aria-label="Page navigation example" class="text-right">
+        <ul class="pagination">
+        {% if page_obj.has_previous %}
+          <li class="page-item"><a class="page-link" href="?page=1">First</a></li>
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+          {% if page_obj.number == num %}
+              <li class="page-item"><a class="page-link">{{ num }}</a></li>
+          {% elif num > page_obj.number|add:'-2' and num < page_obj.number|add:'2' %}
+              <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+          {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+          <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Last</a></li>
+        {% endif %}
+        </ul>
+      </nav>
+    </p>
+  {% endif %}
 
   {% else %}
     <h3>Нет новостей</h3>
   {% endif %}
+  <!--
   <p>
-    {% if is_not_authors %}
-        <button onclick="document.location='/sign/upgrade/'"> Хочу Писать!</button>
+    {% if is_not_authors and request.user.is_authenticated %}
+        <button type="button" class="btn btn-primary" onclick="document.location='/sign/upgrade/'"> Хочу Писать!</button>
     {% endif %}
   </p>
   <p>
-    <button onclick="document.location='/sign/logout/'">Выйти</button>
+    {% if request.user.is_authenticated %}
+    <button type="button" class="btn btn-dark" onclick="document.location='/sign/logout/'">Выйти</button>
+    {% endif %}
   </p>
+  -->
 {% endblock content %}

@@ -23,6 +23,7 @@ class UserProfile(LoginRequiredMixin, UpdateView):
     model = User
     template_name = 'user_profile.html'
     form_class = UserProfile
+    success_url = '/sign/profile/'
 
     def get_object(self, **kwargs):
         id = self.kwargs.get('pk')

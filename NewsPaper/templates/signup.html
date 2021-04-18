@@ -1,10 +1,13 @@
-{% extends 'default.html' %}
-{% block title %} Project NewsPaper {% endblock title %}
+{% extends 'index.html' %}
+{% block pagename %}<h2>Sign Up Page</h2>{% endblock %}
+
 {% block content %}
-<h2>Register page</h2>
+
 <form method="post"">
-{% csrf_token %}
-{{ form.as_p }}
-<input type="submit" value="Продолжить">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <!-- <input type="submit" value="Продолжить"> -->
+    <button type="button" class="btn btn-primary"> Registration </button>
 </form>
+
 {% endblock content %}
