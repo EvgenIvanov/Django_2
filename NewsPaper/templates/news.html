@@ -43,4 +43,12 @@
   {% else %}
     <h3>Нет новостей</h3>
   {% endif %}
+  <p>
+    {% if is_not_authors %}
+        <button onclick="document.location='/sign/upgrade/'"> Хочу Писать!</button>
+    {% endif %}
+  </p>
+  <p>
+    <button onclick="document.location='/sign/logout/'">Выйти</button>
+  </p>
 {% endblock content %}

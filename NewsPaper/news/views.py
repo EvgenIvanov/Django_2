@@ -1,4 +1,5 @@
 # from django.shortcuts import render
+
 from django.views.generic import ListView, UpdateView, CreateView, DetailView, DeleteView
 from django.core.paginator import Paginator
 from datetime import datetime
@@ -33,6 +34,7 @@ class PostsList(ListView):
         context = super().get_context_data(**kwargs)
         context['date_now'] = datetime.today()
         # context['filter'] = NewFilter(self.request.GET, queryset=self.get_queryset())
+        context['is_not_authors'] = not self.request.user.groups.filter(name='authors').exists()
         return context
 
     def get_absolute_url(self):
@@ -44,7 +46,7 @@ class PostDetail(DetailView):
     context_object_name = 'new'
     queryset = Post.objects.all()
 
-class PostCreate(CreateView):
+class PostCreate(LoginRequiredMixin, CreateView):
     model = Post
     template_name = 'new_add.html'
     form_class = NewForm
@@ -59,7 +61,7 @@ class PostUpdate(LoginRequiredMixin, UpdateView):
         id = self.kwargs.get('pk')
         return Post.objects.get(pk=id)
 
-class PostDelete(DeleteView):
+class PostDelete(LoginRequiredMixin, DeleteView):
     template_name = 'new_delete.html'
     queryset = Post.objects.all()
     context_object_name = 'new'
