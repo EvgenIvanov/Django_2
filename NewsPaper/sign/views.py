@@ -2,9 +2,8 @@ from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User, Group
 from django.views.generic.edit import CreateView, UpdateView
-from .models import BaseRegisterForm
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import UserProfile
+from .forms import UserProfile, BaseRegisterForm
 
 class BaseRegisterView(CreateView):
     model = User

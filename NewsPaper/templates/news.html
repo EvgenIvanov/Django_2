@@ -9,6 +9,9 @@
   <button type="button" class="btn btn-light" onclick="document.location='{% url 'new_add' %}'">+ Add new article</button> <br>
 </p>
 {% endif %}
+{% if is_user and not is_author %}
+  <button type="button" class="btn btn-success" onclick="document.location='/sign/upgrade/'" title="push me" style="margin-top:10px;">I want to be an author of articles</button>
+{% endif %}
 {% if news %}
   <div class="card-deck">
   {% for new in news %}
