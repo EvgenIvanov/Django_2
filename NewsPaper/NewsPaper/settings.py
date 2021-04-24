@@ -146,8 +146,11 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
-# STATIC_ROOT = ''
 
 STATIC_URL = '/static/'
 
-# STATICFILES_DIR = ( os.path.join('/NewsPaper/static'), )
+EMAIL_HOST = 'smtp'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'user'
+EMAIL_HOST_PASSWORD = 'password'
+EMAIL_USE_SSL = True
