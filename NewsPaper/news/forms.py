@@ -6,7 +6,6 @@ class NewForm(ModelForm):
     class Meta:
         model = Post
         fields = [
-            'author_id',
             'post_type',
             'category_id',
             'title',
