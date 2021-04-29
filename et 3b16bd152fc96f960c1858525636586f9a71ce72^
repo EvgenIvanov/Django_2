@@ -1,0 +1,77 @@
+[33mcommit 3b16bd152fc96f960c1858525636586f9a71ce72[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m
+Author: EvgenIvanov <evgen2007@bk.ru>
+Date:   Thu Apr 29 23:16:42 2021 +0300
+
+    add db
+
+[33mcommit 62ecee790c082bf73506e8f7ec0558d62964b239[m[33m ([m[1;31morigin/main[m[33m)[m
+Author: EvgenIvanov <evgen2007@bk.ru>
+Date:   Sat Apr 24 17:07:16 2021 +0300
+
+    fix code d5
+
+[33mcommit 769ac374d0768f2567d3bb95bde28c21d0154c56[m
+Author: EvgenIvanov <evgen2007@bk.ru>
+Date:   Thu Apr 22 22:24:15 2021 +0300
+
+    fix registration button type
+
+[33mcommit 0ffc7a09bff301d1f73e186f4f40e5b34afa18ea[m[33m ([m[1;32md5[m[33m)[m
+Author: EvgenIvanov <evgen2007@bk.ru>
+Date:   Sun Apr 18 17:49:24 2021 +0300
+
+    create site
+
+[33mcommit cd21f6cf191e79c8e0c62884e36644eb7d56b9ad[m
+Author: EvgenIvanov <evgen2007@bk.ru>
+Date:   Sun Apr 18 08:50:56 2021 +0300
+
+    d5
+
+[33mcommit ffe4dd380b81ce1e3328e4fe15c371387a287eda[m
+Author: EvgenIvanov <evgen2007@bk.ru>
+Date:   Wed Apr 7 22:33:12 2021 +0300
+
+    d5.3 add redirect, login, logout
+
+[33mcommit 674404600c1ed44aa541699e4ed1f8317921c89a[m
+Author: EvgenIvanov <evgen2007@bk.ru>
+Date:   Mon Apr 5 23:12:17 2021 +0300
+
+    complited task D4.4
+
+[33mcommit 4005db7ca16902660bc5af374e438745281765fd[m
+Author: EvgenIvanov <evgen2007@bk.ru>
+Date:   Sun Apr 4 15:10:20 2021 +0300
+
+    complited task D4.2
+
+[33mcommit e2729df9fd118e81f6b05940829af2171d505ef6[m
+Author: EvgenIvanov <evgen2007@bk.ru>
+Date:   Sun Mar 28 21:28:02 2021 +0300
+
+    add custom filters
+
+[33mcommit 7e95f5e8329d3cb312d8e8cfb2050b4da618a402[m
+Author: EvgenIvanov <evgen2007@bk.ru>
+Date:   Fri Mar 26 22:11:57 2021 +0300
+
+    full news list, sull detail
+
+[33mcommit b0541904e97cfa37f8dca3fbbaf8198e4074704a[m
+Author: EvgenIvanov <evgen2007@bk.ru>
+Date:   Thu Mar 25 22:28:05 2021 +0300
+
+    add settings, pages
+
+[33mcommit 34db612bba5d0cc5f051f99520ec52e55b54b897[m
+Author: EvgenIvanov <evgen2007@bk.ru>
+Date:   Wed Mar 24 23:36:55 2021 +0300
+
+    add .vscode
+
+[33mcommit e4aaa9c4ef21ae1a2ad21e69c56f9c0de780be4f[m
+Author: EvgenIvanov <evgen2007@bk.ru>
+Date:   Tue Mar 23 23:30:24 2021 +0300
+
+    init D2
