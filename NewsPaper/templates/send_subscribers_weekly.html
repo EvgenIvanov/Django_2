@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>User: {{ subscr.username }}</h2>
+    <h4>Weekly newslatter</h4>
+    <hr>
+    {% for post in posts %}
+    <h3>{{ post.title}}</h3>
+    <p>{{ post.text|truncatechars:50}}</p>
+    <div>
+        Чтобы прочитать статью полностью нажмите на <a href="http://127.0.0.1:8000/news/{{ post.id }}">ссылку</a>
+    </div>
+    <hr>
+    {% endfor %}
+</body>
+</html>
