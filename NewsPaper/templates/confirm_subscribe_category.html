@@ -1,0 +1,17 @@
+{% extends 'index.html' %}
+{% load custom_filters %}
+
+{% block pagename %}<h2>Create or Edit new Page</h2>{% endblock %}
+
+{% block content %}
+
+<div class="card">
+  <div class="card-header">
+    Subscribed OK
+  </div>
+  <div class="card-body">
+    <h5>You subscribed to the category: <b>{{ category.name }}</b> on the news portal NewsPaper.</h5>
+  </div>
+</div>
+
+{% endblock content %}

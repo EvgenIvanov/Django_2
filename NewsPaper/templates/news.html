@@ -22,6 +22,19 @@
     <div class="card-body">
       <h5 class="card-title"><a href="{% url 'new_detail' new.id %}" title="show article detail">{{ new.title|Censor }}</a></h5>
       <p class="card-text">{{ new.text|truncatechars:50 }}</p>
+      <div class="text-right">
+        <ul class="list-unstyled"></ul>
+          {% for category in new.category_id.all %}
+            <li>
+              {% if request.user.is_authenticated %}
+                <a href="/sign/subscribe/?catID={{category.id}}" title="subscribe to the category {{ category.name }}"> {{ category.name }}</a>
+              {% else %}
+                {{ category.name }}
+              {% endif %}
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
     </div>
     {% if is_author %} <!-- request.user.is_authenticated %} -->
     <div>

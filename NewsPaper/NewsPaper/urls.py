@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from NewsPaper.views import IndexView
+from news.views import CategorySubscribe
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,4 +25,5 @@ urlpatterns = [
     path('sign/', include('sign.urls')),
     path('news/', include('news.urls')),
     path('accounts/', include('allauth.urls')),
+    path('subscribe/<int:pk>', CategorySubscribe.as_view(), name='categorysubscribe'),
 ]

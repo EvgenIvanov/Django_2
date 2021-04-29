@@ -1,10 +1,10 @@
-# from django.shortcuts import render
+from django.shortcuts import render
 
 from django.views.generic import ListView, UpdateView, CreateView, DetailView, DeleteView
 from django.core.paginator import Paginator
 from datetime import datetime
 
-from .models import Post
+from .models import Post, Category, Author
 from .filters import NewFilter
 from .forms import NewForm
 
@@ -49,9 +49,17 @@ class PostCreate(UserPassesTestMixin, LoginRequiredMixin, CreateView):
     template_name = 'new_add.html'
     form_class = NewForm
 
-    def test_func(self):
-        # obj = self.get_object()
+    def form_valid(self, form):
+        auth_user = self.request.user
+        if not Author.objects.filter(user_id=auth_user).exists():
+            author = Author.objects.create(user_id=auth_user)
+        else:
+            author = Author.objects.get(user_id=auth_user)
 
+        form.instance.author_id = author
+        return super().form_valid(form)
+
+    def test_func(self):
         return self.request.user.groups.filter(name='authors').exists()
 
 class PostUpdate(UserPassesTestMixin, LoginRequiredMixin, UpdateView):
@@ -76,3 +84,9 @@ class PostDelete(UserPassesTestMixin, LoginRequiredMixin, DeleteView):
     def test_func(self):
         obj = self.get_object()
         return obj.author_id.user_id == self.request.user
+
+class CategorySubscribe(DetailView):
+    model = Category
+    template_name = 'confirm_subscribe_category.html'
+    context_object_name = 'category'
+    queryset = Category.objects.all()

@@ -1,6 +1,8 @@
 from django.contrib.auth.models import User, Group
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
+from django.core.mail import send_mail
+from datetime import datetime
 
 class UserProfile(forms.ModelForm):
     class Meta:
@@ -24,4 +26,12 @@ class BaseRegisterForm(UserCreationForm):
         user = super(BaseRegisterForm, self).save(commit=True)
         basic_group = Group.objects.get(name='common')
         basic_group.user_set.add(user)
+        send_mail(
+            subject = 'Registration on the news portal NewsPaper',
+            message = f'Hello {user.username}! You are registered on the news portal NewsPaper.',
+            from_email = 'evgen2007@bk.ru',
+            recipient_list = [f'{user.email}']
+        )
         return user
+
+    # def sen_email():
