@@ -28,7 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1']
 
-LOGIN_URL = '/accounts/login/' #'/sign/login'
+LOGIN_URL = '/accounts/login/'
 LOGOUT_URL = '/sign/logout'
 LOGIN_REDIRECT_URL = '/news'
 
@@ -41,16 +41,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'news.apps.NewsConfig',
+    'django.contrib.sites',
     'sign',
-    'news',
     'news.templatetags',
     'django_filters',
-    'django.contrib.sites',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     # ... include the providers you want to enable:
     'allauth.socialaccount.providers.google',
+    'django_apscheduler',
 ]
 
 SITE_ID = 1
@@ -149,8 +150,16 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+DEFAULT_FROM_EMAIL = ''
+
 EMAIL_HOST = 'smtp'
 EMAIL_PORT = 465
-EMAIL_HOST_USER = 'user'
-EMAIL_HOST_PASSWORD = 'password'
+EMAIL_HOST_USER = DEFAULT_FROM_EMAIL
+EMAIL_HOST_PASSWORD = ''
 EMAIL_USE_SSL = True
+
+# формат даты, которую будет воспрнимать наш задачник(вспоминаем урок по фильтрам)
+APSCHEDULER_DATETIME_FORMAT = "N j, Y, f:s a"
+
+# если задача не выполняется за 25 секунд, то она автоматически снимается, можете поставить время побольше, но как правило, это сильно бьёт по производительности сервера
+APSCHEDULER_RUN_NOW_TIMEOUT = 25  # Seconds
